@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: data-engine
+  datasource:
+    url: jdbc:postgresql://localhost:5432/demo_batch
+    username: postgres
+    password: postgres
+  batch:

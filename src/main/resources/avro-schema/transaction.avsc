@@ -1,0 +1,43 @@
+{
+    "type" : "record",
+    "namespace" : "com.snifee.avroclass",
+    "name" : "TRANSACTION",
+    "fields" : [
+        {
+            "name" : "id",
+            "type" : "string"
+        },
+        {
+            "name" : "source_bank",
+            "type" : "string"
+        },
+        {
+           "name" : "dest_bank",
+           "type" : "string"
+        },
+        {
+            "name" : "account",
+            "type" : "string"
+        },
+        {
+            "name" : "receiving_currency",
+            "type" : "string"
+        },
+        {
+            "name" : "amount",
+            "type" : "string"
+        },
+        {
+            "name" : "payment_currency" ,
+            "type" : "string"
+        },
+        {
+            "name" : "payment_format",
+            "type" : "string"
+        },
+        {
+            "name" : "is_laundering",
+            "type" : "int"
+        }
+    ]
+}
