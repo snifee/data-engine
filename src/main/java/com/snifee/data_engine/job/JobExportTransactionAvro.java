@@ -19,11 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.WritableResource;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
+import java.io.File;
 import java.util.UUID;
 
 @Component
@@ -42,13 +44,12 @@ public class JobExportTransactionAvro {
     @Qualifier("postgresTransactionManager")
     private PlatformTransactionManager platformTransactionManager;
 
-    @Bean(name = "JobExportTransaction")
+    @Bean(name = "jobExportTransaction")
     public Job jobExportTransaction (){
         return new JobBuilder("JobExportTransaction", jobRepository)
                 .start(stepExportTransaction())
                 .build();
     }
-
 
     @Bean(name = "stepExportTransaction")
     public Step stepExportTransaction(){
@@ -60,11 +61,8 @@ public class JobExportTransactionAvro {
                 .build();
     }
 
-    @Value("C:\\users\\razya")
-    private Resource resource;
 
-
-    @Bean
+    @Bean(name="transactionLaunderingReader")
     @StepScope
     public JdbcCursorItemReader<Transaction> reader (){
         return new JdbcCursorItemReaderBuilder<Transaction>()
@@ -72,6 +70,7 @@ public class JobExportTransactionAvro {
                 .sql("select * from transaction_laundering")
                 .rowMapper(mapper())
                 .fetchSize(10)
+                .saveState(false)
                 .queryTimeout(3000)
                 .maxRows(10)
                 .build();
@@ -100,6 +99,8 @@ public class JobExportTransactionAvro {
     @Bean
     @StepScope
     public AvroItemWriter<TRANSACTION> writer(){
+        FileSystemResource resource = new FileSystemResource("/");
+
         return new AvroItemWriterBuilder<TRANSACTION>()
                 .resource((WritableResource) resource)
                 .schema(TRANSACTION.getClassSchema().toString())

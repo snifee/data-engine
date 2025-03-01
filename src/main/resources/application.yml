@@ -2,7 +2,20 @@ spring:
   application:
     name: data-engine
   datasource:
-    url: jdbc:postgresql://localhost:5432/demo_batch
+    jdbc-url: jdbc:postgresql://localhost:5432/demo_batch
     username: postgres
     password: postgres
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: always
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+      show-sql: true
   batch:
+    jdbc:
+      initialize-schema: always
+nio:
+  pathToDir: /Users/arfalr/Documents
+  fileName: transaction.csv

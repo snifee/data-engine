@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-@Entity
+@Entity(name = "transaction_laundering")
 @Data
 public class Transaction {
         @Id
