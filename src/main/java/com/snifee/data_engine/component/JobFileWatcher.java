@@ -45,9 +45,10 @@ public class JobFileWatcher implements CommandLineRunner {
         WatchKey key;
         while((key = watchService.take()) != null){
             for (WatchEvent<?> event: key.pollEvents()){
-                if (event.kind()==StandardWatchEventKinds.ENTRY_CREATE
-                        && event.context().toString().equals(fileName)
+                if (
+                        event.kind()==StandardWatchEventKinds.ENTRY_CREATE && event.context().toString().equals(fileName)
                 ){
+                    launcher.run(job,parameter);
                     System.out.println(event.kind().toString()+"|"+event.context().toString());
                 }
             }

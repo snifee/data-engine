@@ -1,6 +1,6 @@
-package com.snifee.data_engine.repository;
+package com.snifee.data_engine.postresql.repository;
 
-import com.snifee.data_engine.entity.Transaction;
+import com.snifee.data_engine.postresql.entity.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

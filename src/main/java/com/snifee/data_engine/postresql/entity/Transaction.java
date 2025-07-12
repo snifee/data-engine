@@ -1,4 +1,4 @@
-package com.snifee.data_engine.entity;
+package com.snifee.data_engine.postresql.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

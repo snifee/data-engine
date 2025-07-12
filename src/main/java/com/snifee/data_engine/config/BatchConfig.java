@@ -28,14 +28,14 @@ public class BatchConfig {
     private DataSource h2DBdataSource;
 
     @Autowired
-    @Qualifier("transactionManager")
-    private PlatformTransactionManager h2TransactionManager;
+    @Qualifier("postgresTransactionManager")
+    private PlatformTransactionManager postgresTransactionManager;
 
     @Bean(name = "jobRepository")
-    public JobRepository getJobRepository() throws Exception {
+    public JobRepository jobRepository() throws Exception {
         JobRepositoryFactoryBean factory = new JobRepositoryFactoryBean();
         factory.setDataSource(h2DBdataSource);
-        factory.setTransactionManager(h2TransactionManager);
+        factory.setTransactionManager(postgresTransactionManager);
         factory.afterPropertiesSet();
         return factory.getObject();
     }
@@ -43,13 +43,8 @@ public class BatchConfig {
     @Bean(name = "jobLauncher")
     public JobLauncher getJobLauncher() throws Exception {
         TaskExecutorJobLauncher jobLauncher = new TaskExecutorJobLauncher();
-        jobLauncher.setJobRepository(getJobRepository());
+        jobLauncher.setJobRepository(jobRepository());
         jobLauncher.afterPropertiesSet();
         return jobLauncher;
-    }
-
-    @Bean
-    public EntityManagerFactoryBuilder entityManagerFactoryBuilder() {
-        return new EntityManagerFactoryBuilder(new HibernateJpaVendorAdapter(), new HashMap<>(), null);
     }
 }

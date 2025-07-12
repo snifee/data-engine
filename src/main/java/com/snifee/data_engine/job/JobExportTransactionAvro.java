@@ -1,8 +1,7 @@
 package com.snifee.data_engine.job;
 
 import com.snifee.avroclass.TRANSACTION;
-import com.snifee.data_engine.entity.Transaction;
-import org.apache.velocity.runtime.resource.Resource;
+import com.snifee.data_engine.postresql.entity.Transaction;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -17,7 +16,6 @@ import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.WritableResource;
@@ -25,7 +23,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
-import java.io.File;
 import java.util.UUID;
 
 @Component
