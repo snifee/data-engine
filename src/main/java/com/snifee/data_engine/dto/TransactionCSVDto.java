@@ -1,10 +1,8 @@
 package com.snifee.data_engine.dto;
 
 
-import java.sql.Timestamp;
-
 public record TransactionCSVDto(
-        Timestamp timestamp,
+        String timestamp,
         String fromBank,
         String account1,
         String toBank,

@@ -15,17 +15,17 @@ import java.nio.file.*;
 @Component
 public class JobFileWatcher implements CommandLineRunner {
 
-    @Value("${nio.pathToDir}")
+    @Value("${nio.path-to-dir}")
     private String pathToDir;
 
-    @Value("${nio.fileName}")
+    @Value("${nio.filename}")
     private String fileName;
 
     @Autowired
     private JobLauncher launcher;
 
     @Autowired
-    @Qualifier("jobExportTransaction")
+    @Qualifier("jobInsertTransactionLaunderingCSV")
     private Job job;
 
     final JobParameters parameter = new JobParametersBuilder().toJobParameters();
@@ -34,7 +34,7 @@ public class JobFileWatcher implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         WatchService watchService = FileSystems.getDefault().newWatchService();
-        Path path = Paths.get("/Users/arfalr/Documents");
+        Path path = Paths.get(pathToDir);
 
         path.register(
                 watchService,

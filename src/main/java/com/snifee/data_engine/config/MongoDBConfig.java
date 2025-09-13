@@ -1,8 +1,10 @@
 package com.snifee.data_engine.config;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
 @Configuration
@@ -10,8 +12,13 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
         basePackages = "com.snifee.data_engine.mongodb.repository"
 )
 public class MongoDBConfig {
+
+    @Value(value = "${spring.mongodb.uri}")
+    private String mongoUri;
+
     @Bean
-    private MongoTemplate mongoTemplate(){
-        return new MongoTemplate();
+    public MongoClient mongoClient() {
+        return MongoClients.create(mongoUri);
     }
+
 }

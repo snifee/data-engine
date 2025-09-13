@@ -7,6 +7,8 @@ spring:
     password: postgres
     driver-class-name: org.postgresql.Driver
     initialization-mode: always
+  mongodb:
+    uri: mongodb://localhost:27017/playground?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.2
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
@@ -16,6 +18,9 @@ spring:
   batch:
     jdbc:
       initialize-schema: always
+logging:
+  level:
+    org.mongodb.driver: DEBUG
 nio:
-  pathToDir: /Users/arfalr/Documents
-  fileName: transaction.csv
+  path-to-dir: /Users/arfalr/Documents/batch
+  filename: transaction.csv
