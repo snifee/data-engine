@@ -62,7 +62,7 @@ public class InsertTransactionLaunderingCSV {
             @Qualifier("jobRepository") JobRepository jobRepository
     ){
         return new StepBuilder("stepInsertTransactionLaundering",jobRepository)
-                .<TransactionCSVDto, Transaction>chunk(1000,platformTransactionManager)
+                .<TransactionCSVDto, Transaction>chunk(100,platformTransactionManager)
                 .reader(itemReader())
                 .processor(processor())
                 .writer(writer())
